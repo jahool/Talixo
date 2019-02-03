@@ -21,6 +21,7 @@ public class TestBase {
 
     @AfterMethod
     public void afterTest() {
-     // dodać zamknięcie drivera jak już wszystko będzie działać
+        driver.close();
+        driver.quit();
     }
 }
