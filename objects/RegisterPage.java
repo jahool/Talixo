@@ -1,8 +1,11 @@
 package objects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import static org.openqa.selenium.Keys.ENTER;
 
@@ -13,7 +16,7 @@ public class RegisterPage {
     public RegisterPage(WebDriver driver) {
         this.driver = driver;
     }
-    String email2 = "JAHOL@ONET.PL";  // set login here! write it in capitals
+    String email2 = "JAHOL4@ONET.PL";  // set login here! write it in capitals
     public String setLogin(){
         String registerMail = email2;
         return registerMail;
@@ -57,26 +60,23 @@ public class RegisterPage {
         WebElement nazwaFirmyFild = driver.findElement(By.xpath("//*[@id=\"id_corporation_name\"]"));
         nazwaFirmyFild.sendKeys(nazwaFirmy);
     }
-    public void clickDiscountsCheckBox(){
-        WebElement discountsCheckBox = driver.findElement(By.xpath("//*[@id=\"register\"]/div[3]/div[2]/div/div[1]/div/form/div[10]/ul/li[1]/label/span"));
-        discountsCheckBox.click();
+    public void clickCheckBoxes() {
+        List<WebElement> listOfElements =
+                driver.findElements(By.xpath("//span[@class='label-body']"));
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        for (int i = 0; i < listOfElements.size(); i++) {
+            executor.executeScript("arguments[0].click();", listOfElements.get(i));
+        }
     }
-    public void clickDataCheckBox(){
-        WebElement dataCheckBox = driver.findElement(By.xpath("//*[@id=\"register\"]/div[3]/div[2]/div/div[1]/div/form/div[10]/ul/li[2]/label/span"));
-        dataCheckBox.click();
-    }
-    public void clickTermsCheckBox(){
-        WebElement termsCheckBox = driver.findElement(By.xpath("//*[@id=\"register\"]/div[3]/div[2]/div/div[1]/div/form/div[10]/ul/li[3]/label/span"));
-        termsCheckBox.click();
-    }
-    public void clickUtworzKontoButton(){
-        WebElement utworzKontoButton = driver.findElement(By.xpath("//*[@id=\"register\"]/div[3]/div[2]/div/div[1]/div/form/input[3]"));
-        utworzKontoButton.click();
-    }
-    public String confirmRegistration() {
-        WebElement checkEmail2 = driver.findElement(By.xpath("//*[@id=\"landing\"]/div[3]/div[1]/div/ul/li[2]/span/span"));
-        String confirmText2 = checkEmail2.getText();
-        return confirmText2;
+        public void clickUtworzKontoButton() {
+            WebElement utworzKontoButton = driver.findElement(By.xpath("//*[@id=\"register\"]/div[3]/div[2]/div/div[1]/div/form/input[3]"));
+            utworzKontoButton.click();
+        }
+        public String confirmRegistration() {
+            WebElement checkEmail2 = driver.findElement(By.xpath("//*[@id=\"landing\"]/div[3]/div[1]/div/ul/li[2]/span/span"));
+            String confirmText2 = checkEmail2.getText();
+            return confirmText2;
+        }
     }
 
 
@@ -85,4 +85,3 @@ public class RegisterPage {
 
 
 
-}

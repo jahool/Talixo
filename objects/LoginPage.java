@@ -18,7 +18,7 @@ public class LoginPage {
         return email;
     }
     public void clickRejestracjaButton(){
-        WebElement rejestracjaButton = driver.findElement(By.xpath("//*[@id=\"landing\"]/div[3]/div[1]/div[1]/ul/li[2]/a"));
+        WebElement rejestracjaButton = driver.findElement(By.xpath("//*[@id=\"landing\"]/div[1]/div[1]/div[1]/ul/li[2]/a"));
         rejestracjaButton.click();
     }
     public void typeLoginField(){

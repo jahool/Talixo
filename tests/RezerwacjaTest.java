@@ -2,40 +2,42 @@ package tests;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.Test;
-import objects.OrderPage;
+import objects.RezerwacjaPage;
+
+import static org.testng.AssertJUnit.assertEquals;
 
 public class RezerwacjaTest extends TestBase {
 
     @Test
     public void tryToOrderACar(){
         JavascriptExecutor jse = (JavascriptExecutor)driver;
-        OrderPage orderPage = new OrderPage(driver);
+        RezerwacjaPage rezerwacjaPage = new RezerwacjaPage(driver);
         jse.executeScript("window.scrollBy(0,300)");
-        orderPage.clickOnRozpocznijRezerwacjeButton();
-        orderPage.typeIntoOdbiorField("Halszki 28, Porucznika Halszki, Kraków, Polska");
-        orderPage.typeIntoCelField("Katowice International Airport (KTW)");
-        orderPage.clickOnDate();
-        orderPage.setTime("12:45");
-        orderPage.clickUpdateButton();
-        orderPage.choseEconomyCar();
-        orderPage.typeNewUserEmail("test2@test.pl");
-        orderPage.typeImie("Jan");
-        orderPage.typeNazwisko("Kowalski");
-        orderPage.typePrefix("+48");
-        orderPage.typeTelefon("765555222");
-        orderPage.typePickUpSign("Wielmożny Panie Janie");
-        orderPage.typeMessgeForDriver("Proszę o punktualność");
-        orderPage.typeNumerKarty("4178580652613125");
-        orderPage.typeWlasciciel("Jan Kowalski");
-        orderPage.typeMiesiac("03");
-        orderPage.typeRok("2021");
-        orderPage.typeCvC("622");
+        rezerwacjaPage.clickOnRozpocznijRezerwacjeButton();
+        rezerwacjaPage.typeIntoOdbiorField("Halszki 28, Porucznika Halszki, Kraków, Polska");
+        rezerwacjaPage.typeIntoCelField("Katowice International Airport (KTW)");
+        rezerwacjaPage.clickOnDate();
+        rezerwacjaPage.setTime("12:45");
+        rezerwacjaPage.clickUpdateButton();
+        rezerwacjaPage.choseEconomyCar();
+        rezerwacjaPage.typeNewUserEmail("test6@test.pl");
+        rezerwacjaPage.typeImie("Jan");
+        rezerwacjaPage.typeNazwisko("Kowalski");
+        rezerwacjaPage.typePrefix("+48");
+        rezerwacjaPage.typeTelefon("765555222");
+        rezerwacjaPage.typePickUpSign("Wielmożny Panie Janie");
+        rezerwacjaPage.typeMessgeForDriver("Proszę o punktualność");
+        rezerwacjaPage.typeNumerKarty("4178580652613125");
+        rezerwacjaPage.typeWlasciciel("Jan Kowalski");
+        rezerwacjaPage.typeMiesiac("03");
+        rezerwacjaPage.typeRok("2021");
+        rezerwacjaPage.typeCvC("622");
         jse.executeScript("window.scrollBy(0,1000)");
-        orderPage.clickAkceptujeButton();  // nie działa, do poprawy!
-        orderPage.clickDiscountsButton(); // nie działa, do poprawy!
-        orderPage.clickDataProtectionButton(); // nie działa, do poprawy!      // przy zaznaczaniu opcji ładuje się też dodatkowa strona www!
-        orderPage.clickGeneralTermsButton(); // nie działa, do poprawy!
-        orderPage.clickZarezerwujButton();
-         // uzupełnić asercję!
+        rezerwacjaPage.clickCheckBoxes();
+        rezerwacjaPage.clickZarezerwujButton();
+        String paymentWarrning = rezerwacjaPage.confirmRezerwacja();
+        String paymentWarningText = "The card does not have enough money to cover the payable amount.";
+        assertEquals(paymentWarrning,paymentWarningText);
+
     }
 }

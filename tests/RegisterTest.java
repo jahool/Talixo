@@ -1,16 +1,20 @@
 package tests;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import objects.LoginPage;
 import objects.RegisterPage;
+
+import java.util.List;
 
 import static org.testng.AssertJUnit.assertEquals;
 
 public class RegisterTest extends TestBase {
 
     @Test
-    public void tryToRegister(){
+    public void tryToRegister() throws InterruptedException {
         LoginPage loginPage = new LoginPage (driver);
         RegisterPage registerPage = new RegisterPage(driver);
         JavascriptExecutor jse = (JavascriptExecutor)driver;
@@ -26,10 +30,8 @@ public class RegisterTest extends TestBase {
         registerPage.clickPodrozujeSluzbowoField();
         registerPage.typeNazwaFirmyField("Firma Pana Jana");
         jse.executeScript("window.scrollBy(0,200)");
-        registerPage.clickDiscountsCheckBox(); // nie działa, do poprawy!      // przy zaznaczaniu opcji ładuje się też dodatkowa strona www!
-        registerPage.clickDataCheckBox(); // nie działa, do poprawy!      // przy zaznaczaniu opcji ładuje się też dodatkowa strona www!
-        registerPage.clickTermsCheckBox();// nie działa, do poprawy!      // przy zaznaczaniu opcji ładuje się też dodatkowa strona www!
-        registerPage.clickUtworzKontoButton();// nie działa, do poprawy!      // przy zaznaczaniu opcji ładuje się też dodatkowa strona www!
+        registerPage.clickCheckBoxes();
+        registerPage.clickUtworzKontoButton();
         String loginMessage = registerPage.confirmRegistration();
         String emailLogin = registerPage.setLogin();
         assertEquals(loginMessage,emailLogin);
